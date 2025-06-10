@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>@AyasakiWEB</title>
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="csss/style.css" />
+  <link rel="stylesheet" href="css/aaa.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+  
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="bg-blur"></div>
+    <div id="enter-text">START</div>
+  </div>
+
+  <!-- Overlay -->
+  <div class="overlay"></div>
+
+  <!-- Volume & Music Control -->
+  <div class="top-controls" style="display:none;">
+    <div class="volume">
+      <div class="volume-button">
+        <i class="fas fa-volume-up" id="volume-icon" style="cursor: pointer;"></i>
+        <div class="tooltip"></div>
+      </div>
+      <input 
+        type="range" 
+        id="volume-range" 
+        class="volume-slider" 
+        min="0" max="100" 
+        value="50" 
+      />
+      <audio id="bg-music" loop autoplay>
+        <source src="https://github.com/ayasakimiko/my-music/raw/main/End%20Of%20Beginning.mp3" type="audio/mpeg" />
+      </audio>
+    </div>
+  </div>  
+
+  <!-- Profile Center -->
+  <div class="profile-center" style="opacity:0;">
+    <img 
+      src="https://media1.tenor.com/m/3w9nBv3LA5kAAAAd/%E3%82%AD%E3%83%A3%E3%82%B9%E3%83%88%E3%83%AA%E3%82%B9-castorice.gif" 
+      class="avatar" 
+      alt="Avatar" 
+    />
+    <div class="username glow">Guy</div>
+    <div class="role glow">Gamer🎮/ROV🦄/HRS👾</div>
+    <div class="lang">❤️Hi I'm Guy nice to meet you❤️</div>
+
+    <!-- Discord Info Box -->
+    <div class="discord-profile">
+      <img id="discord-avatar" class="avatar-main" src="" alt="Avatar" />
+      <div class="discord-info">
+        <div class="discord-name-status">
+          <span id="discord-name"></span>
+          <span class="status-dot dnd" id="mini-status-dot"></span>
+        </div>
+        <div 
+          id="discord-activity-status" 
+          style="font-size: 1rem; color: #ccc;"
+        ></div> 
+      </div>
+    </div>
+
+    <!-- Social Icons -->
+    <div class="social-icons">
+      <a href="https://www.instagram.com/_gxuyxs?igsh=N3ZwbTQyMm1wdmQy" target="_blank">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://www.facebook.com/bodpe.kayjk?rdid=AvHDFeUI8o4BM2as&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F151ASSnjPZp%2F#" target="_blank">
+        <i class="fab fa-facebook"></i>
+      </a>
+      <a href="https://www.tiktok.com/@misaoei_ei?_t=ZS-8x5wf3DkR5m&_r=1" target="_blank">
+        <i class="fab fa-tiktok"></i>
+      </a>
+      <a href="https://discordapp.com/users/627442371134488616" target="_blank">
+        <i class="fab fa-discord"></i>
+      </a>
+      </a>
+      <a href="https://x.com/misa_no50241?t=i9anwRl9Zf3BjzO-DgyW_A&s=09" target="_blank">
+        <i class="fab fa-x-twitter"></i>
+      </a>
+      <a href="https://open.spotify.com/user/31a32tcqzdgpi6mk4tfjvkz4ot6i?si=z7q62w6iQ-S_8RVacXYCQg&nd=1&dlsi=dd758142bc7945dd" target="_blank">
+        <i class="fab fa-spotify"></i>
+      </a>
+    </div>
+
+    <!-- Mini Song Player -->
+    <div class="mini-player" id="mini-player">
+      <img 
+        src="https://media1.tenor.com/m/FMwYEqAbobYAAAAd/hsr-honkai-star-rail.gif" 
+        class="mini-cover" 
+        alt="Cover" 
+      />
+      <div class="mini-info">
+        <div class="mini-title">End of Beginning</div>
+        <div class="mini-time">
+          <span id="mini-current">0:00</span>
+        </div>
+        <input type="range" id="mini-seek" value="0" />
+      </div>
+      <button id="mini-toggle">
+        <i class="fas fa-play"></i>
+      </button>
+    </div>
+  </div>
+
+  <span style="margin-right: 1000px;"></span>
+
+  <!-- Scripts -->
+  <script src="jss/script.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/zoom.js"></script>
+
+  <!-- Loading screen & music control -->
+  <script>
+    const loadingScreen = document.getElementById('loading-screen');
+    const mainContent = document.querySelector('.profile-center');
+    const controls = document.querySelector('.top-controls');
+    const bgMusic = document.getElementById('bg-music');
+    const volumeRange = document.getElementById('volume-range');
+    const volumeIcon = document.getElementById('volume-icon');
+
+    loadingScreen.addEventListener('click', () => {
+      loadingScreen.classList.add('hidden');
+      mainContent.style.opacity = '1';
+      controls.style.display = 'flex';
+
+      bgMusic.volume = volumeRange.value / 100;
+      bgMusic.play().catch(() => {
+        alert("ไม่สามารถเล่นเพลงได้อัตโนมัติได้");
+      });
+    });
+  </script>
+
+  <!-- Screen lock scale -->
+  <script>
+    function scaleToFit() {
+      const scaleX = window.innerWidth / 1920;
+      const scaleY = window.innerHeight / 1080;
+      const scale = Math.min(scaleX, scaleY);
+
+      const screen = document.querySelector('.screen-locked');
+      if (screen) {
+        screen.style.transform = `scale(${scale})`;
+      }
+    }
+
+    window.addEventListener('resize', scaleToFit);
+    window.addEventListener('load', scaleToFit);
+  </script>
+  
+</body>
+</html>
